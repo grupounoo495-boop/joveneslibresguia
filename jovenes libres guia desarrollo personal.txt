@@ -1,0 +1,1323 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#131924">
+  <title>Jóvenes Libres · Guía para crecer</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #131924; --surface: #1b2432; --line: #394557;
+      --text: #fff9f3; --muted: #c3cbd8; --amber: #ffca91;
+      --mint: #b5e5cd; --terra: #f4aa99; --lilac: #d0bfff; --blue: #b3d1ff;
+      font-family: Inter, system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--text); line-height: 1.6;
+      background: radial-gradient(ellipse at 74% 0%, #292638 0%, transparent 550px), var(--bg);
+    }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+    :target { scroll-margin-top: 24px; }
+    h1, h2, h3, h4, p { margin: 0; }
+    h1, h2, h3, h4 { line-height: 1.16; }
+    h2 { font-size: clamp(1.55rem, 4vw, 2.45rem); letter-spacing: -.045em; }
+    h3 { font-size: 1.19rem; letter-spacing: -.025em; }
+    p + p { margin-top: .65em; }
+    a { color: var(--amber); text-underline-offset: .22em; }
+    button, input, select, textarea { font: inherit; }
+    button, .btn { cursor: pointer; }
+    svg { vertical-align: middle; }
+    .icon {
+      width: 1.25em; height: 1.25em; flex: none; fill: none;
+      stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .shell { width: min(1140px, 100% - 44px); margin-inline: auto; }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .skip { position: fixed; left: 1rem; top: -6rem; z-index: 8; }
+    .skip:focus { top: 1rem; }
+    .muted { color: var(--muted); }
+    .small { font-size: .83rem; }
+    .row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 44px; padding: 9px 15px; border: 1px solid var(--line);
+      border-radius: 12px; background: #263244; color: var(--text);
+      text-decoration: none; font-weight: 700; line-height: 1.25;
+      transition: background .16s, border-color .16s;
+    }
+    .btn:hover { background: #334256; }
+    .primary { background: var(--amber); border-color: var(--amber); color: #261b15; }
+    .primary:hover { background: #ffdbb4; }
+    .btn[aria-pressed="true"] { background: #243e35; border-color: #6eb099; color: var(--mint); }
+    .plain { background: transparent; }
+    label { display: block; font-weight: 600; font-size: .92rem; }
+    input:not([type="checkbox"]), select, textarea {
+      min-width: 0; width: 100%; min-height: 44px; margin-top: 5px; padding: 9px 11px;
+      border-radius: 10px; border: 1px solid var(--line); background: #131c29; color: var(--text);
+    }
+    input::placeholder, textarea::placeholder { color: #aab5c6; }
+    textarea { min-height: 70px; resize: vertical; }
+    input[type="checkbox"] { accent-color: var(--mint); width: 19px; height: 19px; flex: none; }
+    .panel {
+      border: 1px solid var(--line); border-radius: 22px;
+      background: linear-gradient(145deg, #222c3d, #1b2432);
+      box-shadow: 0 12px 32px #0c101633;
+    }
+    header { border-bottom: 1px solid #ffffff17; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 75px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--text); text-decoration: none; line-height: 1.15; }
+    .brand-mark { display: grid; place-items: center; width: 43px; height: 43px; border-radius: 13px; background: #332b48; color: var(--lilac); }
+    .brand-mark .icon { width: 26px; height: 26px; }
+    .brand small { display: block; margin-top: 4px; color: var(--muted); font-size: .71rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 5px 22px; }
+    nav a { display: inline-block; padding-block: 8px; color: var(--muted); text-decoration: none; font-size: .87rem; }
+    nav a:hover { color: var(--text); }
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 24px; padding: 58px 0 44px; }
+    .hero h1 { font-size: clamp(2.7rem, 6.4vw, 5.6rem); font-weight: 800; letter-spacing: -.075em; line-height: .99; }
+    .hero h1 span { display: block; color: var(--amber); }
+    .hero p { max-width: 45ch; margin: 21px 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.12rem); }
+    .hero-art {
+      position: relative; isolation: isolate; display: grid; place-items: center; overflow: hidden;
+      min-height: 290px; border: 1px solid #e8c8ff2b; border-radius: 26px;
+      background: radial-gradient(ellipse at 75% 18%, #8b547b80, transparent 55%),
+                  radial-gradient(ellipse at 20% 86%, #305951, transparent 55%), #27283b;
+    }
+    .hero-art::before, .hero-art::after {
+      content: ""; position: absolute; z-index: -1; width: 92%; height: 47%;
+      border: 1px solid #edd1ff45; border-radius: 50%; transform: rotate(-29deg);
+    }
+    .hero-art::after { width: 81%; height: 70%; transform: rotate(33deg); border-color: #ffc88c51; }
+    .emblem {
+      display: grid; place-items: center; width: 128px; aspect-ratio: 1;
+      border: 1px solid #f9d9ff5c; border-radius: 34%; transform: rotate(-11deg);
+      color: #fbe5ff; background: #2c2943ad; box-shadow: 0 20px 50px #15122270;
+      backdrop-filter: blur(9px);
+    }
+    .emblem .icon { width: 74%; height: 74%; transform: rotate(11deg); stroke-width: 1.15; }
+    .spark { position: absolute; color: var(--amber); font-size: 26px; left: 15%; top: 25%; }
+    .spark + .spark { left: auto; right: 17%; top: auto; bottom: 15%; color: var(--mint); font-size: 36px; }
+    .progress { display: grid; grid-template-columns: 1fr .72fr; gap: 24px; padding: 22px 25px; }
+    .progress h2 { font-size: 1.35rem; }
+    .progress-top { justify-content: space-between; }
+    .progress-top strong { font-size: 1.43rem; color: var(--mint); }
+    .track { height: 10px; margin: 10px 0; overflow: hidden; border-radius: 20px; background: #111a27; }
+    .track span {
+      display: block; height: 100%; width: 0; border-radius: inherit;
+      background: linear-gradient(90deg, #7ecab1, var(--mint)); transition: width .42s ease;
+    }
+    .badges { border-left: 1px solid var(--line); padding-left: 23px; }
+    .badges ul { display: flex; gap: 6px; flex-wrap: wrap; margin: 9px 0 0; padding: 0; list-style: none; }
+    .badges li { padding: 4px 8px; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); font-size: .76rem; }
+    .badges .earned { color: var(--mint); background: #233b36; border: 1px solid #50836e; }
+    .section { margin-top: 42px; }
+    .search { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 9px 10px 9px 16px; }
+    .search > .icon { color: var(--amber); width: 22px; height: 22px; }
+    .search input { margin: 0; padding-inline: 0; border: 0; background: transparent; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+    .chip { min-height: 41px; border-radius: 99px; padding: 6px 13px; font-size: .83rem; }
+    .results { margin: 18px 0 10px; min-height: 26px; justify-content: space-between; }
+    .results .btn { font-size: .82rem; min-height: 38px; text-align: left; }
+    .catalog { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .module { display: flex; min-width: 0; }
+    .tile {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: 100%;
+      padding: 16px; text-align: left; color: var(--text); border: 1px solid var(--line);
+      border-radius: 17px; background: var(--surface); transition: border-color .18s, background .18s;
+    }
+    .tile:hover, .tile[aria-expanded="true"] { border-color: var(--accent); background: #242f41; }
+    .tile-top, .tile-end { width: 100%; justify-content: space-between; }
+    .tile-icon {
+      display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px;
+      color: var(--accent); background: #ffffff0c; border: 1px solid #ffffff16;
+    }
+    .tile-title { font-size: 1.11rem; font-weight: 800; line-height: 1.2; }
+    .tile-end { margin-top: auto; padding-top: 8px; color: var(--accent); font-size: .82rem; font-weight: 700; }
+    .tile[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    .lesson { grid-column: 1 / -1; padding: clamp(16px, 3vw, 28px); scroll-margin-top: 16px; }
+    .lesson header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 13px; margin-bottom: 13px; }
+    .lesson h2 { color: var(--accent); font-size: clamp(1.35rem, 4vw, 2rem); }
+    .lesson-intro { max-width: 78ch; }
+    .lesson ul { padding-left: 1.15rem; }
+    .lesson li + li { margin-top: .35rem; }
+    .lesson-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 13px; align-items: start; }
+    .box { background: #151e2c; border: 1px solid var(--line); border-radius: 16px; padding: clamp(13px, 2vw, 18px); min-width: 0; }
+    .box h3 { margin-bottom: 9px; }
+    .box .row { margin-top: 10px; }
+    .stack { display: grid; gap: 9px; }
+    .box .stack { margin-top: 10px; }
+    .checkline { display: flex; align-items: flex-start; gap: 8px; font-weight: 500; }
+    .checkline input { margin: 3px 0 0; }
+    .answer { margin-top: 10px; min-height: 1.55em; color: var(--mint); overflow-wrap: anywhere; }
+    .timer { font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 800; color: var(--mint); font-variant-numeric: tabular-nums; }
+    .breathe { min-height: 123px; display: grid; place-items: center; }
+    .orb {
+      display: grid; place-items: center; width: 84px; aspect-ratio: 1; border-radius: 50%;
+      border: 1px solid #8ad4b9; background: #2a4e45; color: #e4fff1; font-weight: 800;
+      box-shadow: 0 0 25px #8ad4b92e; transition: transform 4s linear;
+    }
+    .orb.in { transform: scale(1.3); }
+    .player {
+      display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden;
+      margin-top: 10px; border-radius: 12px; background: radial-gradient(at 75% 20%, #3d3450, #1a2738);
+    }
+    .player iframe { width: 100%; height: 100%; border: 0; }
+    .book-note, .checks { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+    .checks > p { margin-bottom: 8px; }
+    .certificate, .book { padding: clamp(18px, 4vw, 32px); }
+    .certificate h2, .book h2 { margin-bottom: 9px; }
+    .certificate form { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; margin-top: 12px; }
+    .certificate form label { flex: 1 1 200px; max-width: 420px; }
+    .certificate > .row { margin-top: 12px; }
+    .paper {
+      padding: clamp(18px, 6vw, 50px); border: 5px double #917051; border-radius: 12px;
+      background: #fff8ec; color: #2b2535; text-align: center; overflow-wrap: anywhere;
+    }
+    .paper .icon { width: 49px; height: 49px; color: #59416d; }
+    .paper h2 { margin: 14px 0 10px; }
+    .paper strong { display: block; margin: 10px auto; color: #573a64; font-size: clamp(1.6rem, 5vw, 2.8rem); }
+    .paper p { max-width: 65ch; margin: 9px auto 0; }
+    .book { display: grid; grid-template-columns: 135px 1fr; align-items: center; gap: 26px; }
+    .cover {
+      display: grid; place-content: center; justify-items: center; gap: 7px; min-height: 165px;
+      background: linear-gradient(145deg, #ac8ad0, #51426f 80%);
+      color: white; font-weight: 800; text-align: center; border-radius: 7px 14px 14px 7px;
+      border-left: 8px solid #45375d; box-shadow: 7px 7px 0 #e9dac8, 11px 11px 0 #513d66;
+      transform: rotate(-6deg);
+    }
+    .cover .icon { width: 42px; height: 42px; }
+    .book form { margin-top: 12px; }
+    .book form label { flex: 1 1 180px; max-width: 440px; }
+    .book form .row { align-items: end; }
+    footer { padding: 24px 0 98px; margin-top: 30px; border-top: 1px solid #ffffff17; }
+    .chat-toggle {
+      position: fixed; z-index: 4; right: 18px; bottom: 16px;
+      bottom: max(16px, env(safe-area-inset-bottom)); box-shadow: 0 6px 24px #0007;
+    }
+    .chat {
+      position: fixed; z-index: 5; right: 18px; bottom: 71px; width: min(395px, 100% - 36px);
+      max-height: min(640px, calc(100vh - 89px)); max-height: min(640px, calc(100dvh - 89px));
+      display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 50px #0009;
+    }
+    .chat header { display: flex; justify-content: space-between; gap: 6px; padding: 11px 13px; }
+    .chat .btn { font-size: .81rem; }
+    .chat-log { padding: 12px; overflow: auto; min-height: 60px; flex: 1 1 auto; overscroll-behavior: contain; }
+    .message { width: fit-content; max-width: 94%; border-radius: 13px; padding: 8px 11px; background: #303c50; font-size: .88rem; overflow-wrap: anywhere; }
+    .message + .message { margin-top: 8px; }
+    .message.mine { margin-left: auto; background: #3e3553; }
+    .message .btn, .message a { display: inline-flex; margin-top: 8px; }
+    .quick { padding: 0 12px 10px; display: flex; flex-wrap: wrap; gap: 5px; max-height: 42%; overflow: auto; }
+    .quick .btn { min-height: 38px; text-align: left; }
+    .chat form { display: flex; gap: 6px; padding: 10px; border-top: 1px solid var(--line); }
+    .chat form input { margin-top: 0; }
+    @media (max-width: 899px) {
+      .catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-art { min-height: 238px; }
+    }
+    @media (max-width: 619px) {
+      .shell { width: calc(100% - 28px); }
+      .topbar { flex-wrap: wrap; padding-block: 12px; gap: 4px; }
+      nav { gap: 4px 16px; }
+      .hero { grid-template-columns: 1fr; padding: 32px 0 24px; gap: 17px; }
+      .hero-art { min-height: 126px; }
+      .emblem { width: 78px; }
+      .hero p { margin: 14px 0; }
+      .progress, .catalog, .lesson-grid { grid-template-columns: 1fr; }
+      .progress { padding: 15px; gap: 12px; }
+      .badges { border-left: 0; border-top: 1px solid var(--line); padding: 10px 0 0; }
+      .section { margin-top: 28px; }
+      .search { padding-left: 9px; gap: 6px; }
+      .search .btn { padding-inline: 10px; }
+      .book { grid-template-columns: 1fr; }
+      .cover { width: 99px; min-height: 116px; margin-left: 4px; }
+      input:not([type="checkbox"]), select, textarea { font-size: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+      .orb.in { transform: none; }
+    }
+    @page { size: A4 landscape; margin: 13mm; }
+    @media print {
+      body.printing { background: white; }
+      body.printing > :not(#printout, svg) { display: none !important; }
+      body.printing #printout.paper {
+        display: block !important; min-height: 156mm; padding: 16mm 12mm;
+        break-inside: avoid; print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body id="inicio">
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <symbol id="i-brand" viewBox="0 0 24 24"><path d="M12 19c-1.7-4.1-5-5.4-9.5-5.2L2 5.5c4.1.1 7.4 1.5 10 5.1 2.6-3.6 5.9-5 10-5.1l-.5 8.3c-4.5-.2-7.8 1.1-9.5 5.2Z"/><path d="M12 11v8m0-16v2"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4c0 9-3 14-9 14a5 5 0 0 1-5-5c0-6 5-9 14-9ZM4 20l10-10"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11a8 8 0 0 1-8 8H9l-5 2 1.5-5A8 8 0 1 1 21 11Z"/><path d="M9 12c1 2 4 2 5 0"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M13 3c0 4 5 6 5 11a6 6 0 0 1-12 0c0-3 2-5 4-7-.2 3 1 4 2 4 2-2 2-5 1-8Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20 4.5 13A4.7 4.7 0 0 1 12 7.3a4.7 4.7 0 0 1 7.5 5.7L12 20Z"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="7" rx="7" ry="3"/><path d="M5 7v5c0 4 14 4 14 0V7M5 12v5c0 4 14 4 14 0v-5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 17h2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 12 7-12 7V5Z"/></symbol>
+  </svg>
+
+  <a class="skip btn primary" href="#modulos">Ir a los módulos</a>
+  <header>
+    <div class="topbar shell">
+      <a class="brand" href="#inicio">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-brand"/></svg></span>
+        <span><strong>Jóvenes Libres</strong><small>Centro de estudiantes</small></span>
+      </a>
+      <nav aria-label="Navegación principal">
+        <a href="#modulos">Módulos</a>
+        <a href="#progreso">Mi progreso</a>
+        <a href="#certificado">Certificado</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="titulo">
+      <div>
+        <h1 id="titulo">Crecer también <span>se practica.</span></h1>
+        <p>Un espacio seguro para crecer, sentir, conectar con otros y construir tu propio camino.</p>
+        <a class="btn primary" href="#modulos">
+          Explorar la guía <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="spark">✦</span><span class="spark">✧</span>
+        <div class="emblem"><svg class="icon"><use href="#i-brand"/></svg></div>
+      </div>
+    </section>
+
+    <section id="progreso" class="progress panel" aria-labelledby="progress-title">
+      <div>
+        <div class="progress-top row"><h2 id="progress-title">Mi progreso</h2><strong id="percent">0%</strong></div>
+        <div id="meter" class="track" role="progressbar" aria-label="Actividades confirmadas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+        <p id="progress-count" class="small muted" aria-live="polite">0 de 9 módulos · 0 lecturas · 0 videos</p>
+        <p id="encouragement" class="small">Podés empezar por lo que más te sirva hoy.</p>
+        <p id="storage-warning" class="small" role="status" hidden>El navegador bloqueó el guardado. El avance dura hasta que cierres o recargues esta página.</p>
+      </div>
+      <div class="badges">
+        <strong>Mis insignias</strong>
+        <ul id="badges"></ul>
+      </div>
+    </section>
+
+    <section id="modulos" class="section" aria-labelledby="catalog-title">
+      <h2 id="catalog-title">¿Qué necesitás hoy?</h2>
+      <form id="search-form" class="search panel" role="search">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="query" type="search" aria-label="Buscar módulos" maxlength="160" autocomplete="off"
+          placeholder="¿Qué te ronda la cabeza hoy?">
+        <button class="btn primary" type="submit">Buscar</button>
+      </form>
+      <div id="filters" class="chips" role="group" aria-label="Filtrar por tema"></div>
+      <div class="row results">
+        <p id="result-count" class="small muted" role="status"></p>
+        <button id="suggestion" class="btn plain" type="button" hidden></button>
+      </div>
+      <div id="catalog" class="catalog"></div>
+      <button id="clear-search" class="btn plain" type="button" hidden>Ver los 9 módulos</button>
+      <noscript><p>Activá JavaScript en tu navegador para usar los módulos y guardar tu progreso.</p></noscript>
+    </section>
+
+    <section id="certificado" class="certificate panel section" aria-labelledby="certificate-title">
+      <h2 id="certificate-title">Tu certificado Jóvenes Libres</h2>
+      <p id="certificate-status" class="muted" role="status">Confirmá las nueve lecturas y los nueve videos para desbloquearlo.</p>
+      <form id="certificate-form" hidden>
+        <label>Nombre que querés en el certificado
+          <input id="certificate-name" required maxlength="75" autocomplete="name" placeholder="Tu nombre y apellido">
+        </label>
+        <button class="btn primary" type="submit">Preparar mi certificado</button>
+      </form>
+      <div id="certificate-actions" class="row" hidden>
+        <button id="print-certificate" class="btn primary" type="button">Imprimir o guardar PDF</button>
+      </div>
+      <p id="preview-note" class="small muted" hidden>En el diálogo de impresión, elegí «Guardar como PDF» para descargarlo.</p>
+      <div id="preview" class="paper section" aria-label="Vista previa del certificado" hidden></div>
+    </section>
+
+    <section id="libro" class="book panel section" aria-labelledby="book-title">
+      <div class="cover" aria-hidden="true"><svg class="icon"><use href="#i-brand"/></svg>Jóvenes<br>Libres</div>
+      <div>
+        <h2 id="book-title">El libro de Jóvenes Libres</h2>
+        <p>¿Te gustaría tener estas herramientas en papel? Prepará tu ficha para la lista de espera del futuro libro.</p>
+        <p id="book-info" class="small muted">La ficha queda en este navegador. Descargala y compartila por el canal oficial del Centro para solicitar la inscripción.</p>
+        <form id="book-form" aria-describedby="book-info">
+          <div class="row">
+            <label>Correo para recibir novedades
+              <input id="book-email" type="email" required maxlength="160" autocomplete="email" placeholder="tu.correo@ejemplo.com">
+            </label>
+            <button class="btn primary" type="submit">Guardar mi ficha</button>
+          </div>
+        </form>
+        <p id="book-status" class="answer small" role="status"></p>
+        <div id="book-actions" class="row" hidden>
+          <button id="book-download" class="btn" type="button">Descargar ficha</button>
+          <button id="book-delete" class="btn plain" type="button">Borrar ficha</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell row">
+      <strong>Jóvenes Libres</strong>
+      <a href="https://www.argentina.gob.ar/capital-humano/familia/bienestar-emocional/soy-adolescente/donde-pedir-ayuda" target="_blank" rel="noopener noreferrer">Dónde pedir ayuda en Argentina</a>
+    </div>
+  </footer>
+
+  <button id="chat-toggle" class="btn primary chat-toggle" type="button" aria-expanded="false" aria-controls="chat" hidden>
+    <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> Asistente
+  </button>
+  <section id="chat" class="chat panel" aria-labelledby="chat-title" hidden>
+    <header>
+      <div>
+        <strong id="chat-title">Asistente Jóvenes Libres</strong>
+        <p class="small muted">Guía automática · El chat se borra al recargar.</p>
+      </div>
+      <button id="chat-close" class="btn plain" type="button">Cerrar</button>
+    </header>
+    <div id="chat-log" class="chat-log" role="log" aria-label="Conversación"></div>
+    <div id="chat-quick" class="quick" aria-label="Temas para empezar"></div>
+    <form id="chat-form">
+      <input id="chat-input" aria-label="Tu mensaje" maxlength="420" required autocomplete="off" placeholder="Contame en pocas palabras…">
+      <button class="btn primary" type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <div id="printout" class="paper" hidden></div>
+
+  <script>
+    "use strict";
+
+    const modules = [
+      {
+        id: 1, topic: "calma", icon: "leaf", color: "var(--mint)",
+        title: "Cuando la mente no para", subtitle: "Ansiedad, estrés y exámenes",
+        keys: "ansiedad|estres|calma|nervios|examen|examenes|prueba|panico|agobio|agobiado|no puedo dormir|me siento abrumado|mi mente no para|respirar|respiracion",
+        intro: "Si antes de una prueba te cuesta pensar con claridad o sentís el cuerpo tenso, tiene sentido. Cuando algo te importa y hay incertidumbre, la cabeza puede saltar de una preocupación a otra. Podés darte una pausa antes de seguir.",
+        tips: [
+          "Separá lo que está pasando de lo que imaginás. «Mañana tengo una prueba» es un hecho. «Me va a ir mal» es algo que estás anticipando.",
+          "Elegí algo que puedas hacer ahora. Repasar una pregunta, preparar la mochila o pedirle a alguien que te explique un tema ya es un paso."
+        ],
+        tool: "Una pausa de 24 segundos",
+        video: ["6q37ftLxpTM", "Ejercicio de respiración consciente", "Recomendado en un manual de UNICEF México"],
+        book: ["Sé amable contigo mismo", "Kristin Neff", "Buscá un ejercicio para hablarte con más amabilidad cuando algo te cuesta."],
+        reply: "Cuando se junta todo, cuesta elegir por dónde empezar. En un minuto, anotá una sola cosa que te preocupa y elegí un paso de cinco minutos. Si te sirve, probá primero la pausa guiada."
+      },
+      {
+        id: 2, topic: "social", icon: "chat", color: "var(--lilac)",
+        title: "El arte de conectar y hablar sin miedo", subtitle: "Timidez, conversaciones y hacer amigos",
+        keys: "timidez|timido|timida|verguenza|vergüenza hablar|hablar con gente nueva|ansiedad social|me cuesta encajar|no encajo|hacer amigos|hacer amigas|romper el hielo|hablar|conversar|conversacion|hablar en publico|miedo al juicio|siento que me juzgan|conocer gente|soy timido",
+        intro: "Acercarte a alguien o hablar en clase puede dar vergüenza, sobre todo si estás pendiente de cómo vas a quedar. Podés sentir nervios y practicar igual, en situaciones que te resulten manejables.",
+        tips: [
+          "Arrancá por algo compartido. «¿Qué te pareció la actividad?» abre más conversación que intentar inventar una frase perfecta.",
+          "Escuchá una parte de la respuesta y hacé una pregunta sobre eso. También podés contar algo tuyo y dejar espacio para que el otro elija seguir."
+        ],
+        tool: "Mini-retos para romper el hielo",
+        video: ["R1vskiVDwl4", "10 maneras de tener una mejor conversación", "Celeste Headlee · TED · Subtítulos en español", true],
+        book: ["Los 7 hábitos de los adolescentes altamente efectivos", "Sean Covey", "Podés empezar por la parte sobre escuchar para comprender."],
+        reply: "Es entendible que te dé vergüenza. Probá un ensayo de un minuto: elegí a alguien con quien te sientas cómodo y practicá una pregunta simple, como «¿Qué te pareció la clase?». Después escuchá una cosa de su respuesta."
+      },
+      {
+        id: 3, topic: "emociones", icon: "flame", color: "var(--terra)",
+        title: "Cuando el enojo nos desborda", subtitle: "Ira, frustración y respuestas impulsivas",
+        keys: "enojo|ira|frustracion|bronca|rabia|enojado|furia|gritar|explotar|impulso|emociones|me enojo mucho|respondo mal",
+        intro: "A veces el enojo aparece porque te dolió algo, te sentiste pasado por encima o las cosas salieron distinto a lo que esperabas. Podés tomar en serio lo que sentís y darte unos segundos antes de actuar.",
+        tips: [
+          "Detectá tu señal temprana. Puede ser apretar la mandíbula, subir la voz o querer mandar un mensaje ya.",
+          "Si necesitás alejarte un momento, avisá cuando puedas retomar. Si lastimaste a alguien, reconocé lo que hiciste y proponé una forma concreta de repararlo."
+        ],
+        tool: "Semáforo de las emociones",
+        video: ["_ZENnbMLc9Y", "Diccionario de las emociones: Enojo", "UNAM Global"],
+        book: ["Emocionario. Di lo que sientes", "Cristina Núñez Pereira y Rafael R. Valcárcel", "Compará cómo describe la frustración y la ira."],
+        reply: "Si te dan ganas de contestar ya, probá apoyar los pies y contar cinco segundos. Después preguntate qué querés que la otra persona entienda. Podés volver a la charla cuando estés en condiciones de decirlo."
+      },
+      {
+        id: 4, topic: "tiempo", icon: "clock", color: "var(--blue)",
+        title: "Organizar el caos", subtitle: "Estudio, hábitos y procrastinación",
+        keys: "estudiar|estudio|procrastinar|procrastinacion|organizarme|organizacion|pomodoro|concentrarme|concentracion|tarea|tareas|habitos|tiempo|como estudiar|me cuesta arrancar|me distraigo",
+        intro: "Cuando una tarea parece enorme o no está claro por dónde arrancar, es comprensible que la patees para después. Hacerla más chica te da un punto de entrada.",
+        tips: [
+          "Cambiá «estudiar Historia» por «contestar dos preguntas sobre la Revolución sin mirar los apuntes». Revisá después y corregí lo que te faltó.",
+          "Anotá dónde seguir antes de hacer la pausa. Si hoy tenés poca energía, elegí un bloque más corto y retomá el tema otro día."
+        ],
+        tool: "Pomodoro a tu ritmo",
+        video: ["ZURNy1Np3h4", "Técnica Pomodoro para estudiar", "Duoc UC"],
+        book: ["Apréndetelo", "Peter C. Brown, Henry L. Roediger III y Mark A. McDaniel", "Probá el capítulo sobre recuperar de memoria lo que estudiaste."],
+        reply: "Probá escribir una tarea que puedas terminar y reconocer, como «resolver el ejercicio 2». Prepará lo que necesitás y empezá por el primer renglón. El temporizador te puede acompañar."
+      },
+      {
+        id: 5, topic: "vinculos", icon: "heart", color: "var(--terra)",
+        title: "Cuidar nuestros vínculos", subtitle: "Amistades, límites y decir que no",
+        keys: "amistad|amistades|vinculos|asertividad|limites|decir no|decir que no|no se decir que no|presion de grupo|pelea con un amigo|pelea con una amiga|discuto mucho|discusion|familia|conflicto|amigos|peleas|me presionan",
+        intro: "Decir que algo te molesta puede dar miedo cuando te importa el vínculo. Es posible cuidar a alguien y ser claro con lo que te pasa. Si te apuran a responder, podés pedir tiempo.",
+        tips: [
+          "En una charla segura, describí el hecho y pedí algo concreto. «Me incomodó que compartieras esa foto. Te pido que la borres».",
+          "Si siguen insistiendo, podés repetir el límite. Si hay amenazas o maltrato, buscá el apoyo de una persona adulta de confianza."
+        ],
+        tool: "Simulador de conversaciones difíciles",
+        video: ["SLbyKwfER5A", "Evita la presión social", "Programa Nacional de Convivencia Escolar · SEP México"],
+        book: ["Comunicación no violenta: un lenguaje de vida", "Marshall B. Rosenberg", "Buscá un ejemplo de cómo hacer un pedido concreto."],
+        reply: "Una discusión con alguien que te importa puede dejarte dando vueltas. En un minuto, escribí qué pasó y un pedido concreto. Por ejemplo: «Cuando nos interrumpimos, me cuesta hablar. ¿Podemos escucharnos de a uno?»."
+      },
+      {
+        id: 6, topic: "futuro", icon: "coins", color: "var(--amber)",
+        title: "El dinero y vos", subtitle: "Presupuesto y ahorro para tus primeras metas",
+        keys: "plata|dinero|ahorro|ahorrar|finanzas|gastos|presupuesto|pesos|comprar|cuanto necesito",
+        intro: "Aprender a manejar plata lleva práctica, especialmente si lo que recibís cambia cada mes. Conocer tus gastos y elegir una meta te da un punto de partida.",
+        tips: [
+          "Poné un nombre y un precio a tu meta. Restá lo que ya apartaste y elegí un aporte que sea compatible con tus gastos.",
+          "Si el precio o tus ingresos cambian, actualizá el plan. Podés probar con una meta más chica o más tiempo."
+        ],
+        tool: "Calculadora de metas en pesos",
+        video: ["Ek1IvjREdn4", "Educación financiera: pasos iniciales para ahorrar", "Educación BA"],
+        book: ["Pequeño cerdo capitalista", "Sofía Macías", "Usá la parte de presupuesto y adaptá los ejemplos a tus pesos y tus gastos."],
+        reply: "Elegí una meta y anotá cuánto cuesta hoy. Si ya juntaste algo, restalo. Con ese número podés probar distintos aportes sin comprometer plata que necesitás para otra cosa."
+      },
+      {
+        id: 7, topic: "tiempo", icon: "phone", color: "var(--blue)",
+        title: "Pantallas y paz mental", subtitle: "Redes, notificaciones y atención",
+        keys: "pantallas|pantalla|celular|redes|redes sociales|tiktok|instagram|dopamina|scroll|notificaciones|videos cortos|no suelto el celu|tiempo en redes",
+        intro: "Es fácil abrir el celu para mirar una cosa y terminar viendo diez más. Las alertas y la reproducción automática hacen que seguir sea muy fácil. Podés cambiar un hábito por vez.",
+        tips: [
+          "Elegí para qué vas a abrir una app y cómo vas a saber que terminaste. Puede ser algo tan concreto como responder dos mensajes.",
+          "Fijate cómo te sentís al cerrar ciertas cuentas. Si una te deja comparándote seguido, probá silenciarla unos días y observá qué cambia."
+        ],
+        tool: "Chequeo de hábitos digitales",
+        video: ["o61T93_hpJY", "Tres ideas para equilibrar el tiempo de pantalla", "UNICEF en español"],
+        book: ["Minimalismo digital", "Cal Newport", "Elegí una idea para usar la tecnología con más intención."],
+        reply: "Si te colgaste con el celu, probá ponerle un cierre a la próxima vez que lo uses. «Abro la app para contestar este mensaje, cierro cuando lo mando». El chequeo te sugiere ajustes para otros hábitos."
+      },
+      {
+        id: 8, topic: "autoestima", icon: "star", color: "var(--lilac)",
+        title: "Abrazar quien sos", subtitle: "Autoestima, comparación y aprobación",
+        keys: "autoestima|comparacion|compararme|me comparo|aprobacion|inseguridad|no soy suficiente|no valgo|me siento feo|no me gusta mi cuerpo|gratitud|virtudes|desahogarme",
+        intro: "Compararte puede doler, sobre todo cuando ves lo mejor que otros muestran y vos conocés cada detalle de tus propios días. Podés empezar por mirarte con el mismo cuidado que le ofrecerías a un amigo.",
+        tips: [
+          "Buscá una acción concreta que diga algo de vos. «Le expliqué el tema a alguien» puede mostrar paciencia o generosidad.",
+          "La gratitud puede convivir con un mal día. Alcanza con reconocer un detalle que te sostuvo, incluso si lo demás sigue costando."
+        ],
+        tool: "Diario breve de gratitud y fortalezas",
+        video: ["gXlIAS-rI4E", "Cómo la presión por la imagen nos afecta", "Meaghan Ramsey · TED · Subtítulos en español", true],
+        book: ["Wonder. La lección de August", "R. J. Palacio", "Una novela sobre identidad, amistades y pertenencia."],
+        reply: "Compararse puede pegar fuerte. Por un minuto, pensá en algo concreto que hiciste y que apreciás, aunque nadie lo haya visto. ¿Qué dice esa acción de vos?"
+      },
+      {
+        id: 9, topic: "futuro", icon: "compass", color: "var(--mint)",
+        title: "Dibujando tu mañana", subtitle: "Vocación, curiosidad y aprender al probar",
+        keys: "vocacion|proposito|carrera|carreras|futuro|fortalezas|pasiones|que estudiar despues|que hago despues del colegio|no se que hacer|elegir carrera|ikigai|me equivoque",
+        intro: "Es razonable dudar cuando todavía estás conociendo tus opciones. Tener más de un interés también puede abrirte caminos. Una prueba chica te da información para la próxima decisión.",
+        tips: [
+          "Separá lo que te atrae de lo que conocés. Podés hablar con alguien que ya estudie eso, mirar un plan de materias o probar una actividad.",
+          "Después de probar, anotá qué te dio curiosidad y qué te costó. Las dos respuestas sirven para decidir tu siguiente paso."
+        ],
+        tool: "Mapa de intereses y próximos pasos",
+        video: ["4sZdcB6bjI8", "Por qué algunas personas tienen más de una vocación", "Emilie Wapnick · TED · Subtítulos en español", true],
+        book: ["Diseña tu vida", "Bill Burnett y Dave Evans", "Buscá una idea para probar un camino antes de elegirlo."],
+        reply: "Podés explorar sin tener todo decidido. En un minuto, anotá algo que te dé curiosidad y a quién podrías preguntarle cómo es en la práctica. El mapa te ayuda a armar una prueba para esta semana."
+      }
+    ];
+
+    const topics = [
+      ["all", "Todos"], ["calma", "🌿 Calma"], ["social", "🗣️ Hablar y conectar"],
+      ["emociones", "🔥 Emociones"], ["tiempo", "⏰ Tiempo"],
+      ["vinculos", "💬 Vínculos sanos"], ["futuro", "💰 Futuro y dinero"], ["autoestima", "✨ Autoestima"]
+    ];
+    const helpUrl = document.querySelector("footer a").href;
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    const icon = (name, extra = "") => `<svg class="icon ${extra}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+    const say = (element, message) => {
+      if (element.textContent !== message) element.textContent = message;
+    };
+    const normalize = text => text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, " ").trim();
+
+    const memory = new Map();
+    const prefix = "jovenes-libres.guia.";
+
+    function read(key) {
+      if (memory.has(key)) return memory.get(key);
+      try {
+        return JSON.parse(localStorage.getItem(prefix + key));
+      } catch {
+        $("#storage-warning").hidden = false;
+        return null;
+      }
+    }
+
+    function write(key, value) {
+      try {
+        if (value === null) localStorage.removeItem(prefix + key);
+        else localStorage.setItem(prefix + key, JSON.stringify(value));
+        memory.delete(key);
+        return true;
+      } catch {
+        memory.set(key, value);
+        $("#storage-warning").hidden = false;
+        return false;
+      }
+    }
+
+    const catalog = $("#catalog");
+    const pane = document.createElement("section");
+    pane.className = "lesson panel";
+    pane.hidden = true;
+    const views = new Map();
+    const query = $("#query");
+    const wide = matchMedia("(min-width: 900px)");
+    const medium = matchMedia("(min-width: 620px)");
+    let active = null;
+    let visible = modules;
+    let category = "all";
+    let suggested = null;
+
+    function buildModule(module) {
+      const [videoId, videoTitle, channel] = module.video;
+      const [bookTitle, author, bookTip] = module.book;
+      const card = document.createElement("article");
+      card.className = "module";
+      card.style.setProperty("--accent", module.color);
+      card.innerHTML = `<button class="tile" type="button" aria-controls="lesson-${module.id}" aria-expanded="false">
+        <span class="row tile-top"><span class="tile-icon">${icon(module.icon)}</span><span class="small muted">Módulo ${module.id}</span></span>
+        <span class="tile-title">${module.title}</span><span class="muted small">${module.subtitle}</span>
+        <span class="row tile-end"><span data-tile-status>Ver módulo</span>${icon("down", "chevron")}</span>
+      </button>`;
+
+      const content = document.createElement("article");
+      content.id = `lesson-${module.id}`;
+      content.hidden = true;
+      content.innerHTML = `<header>
+        <h2 id="lesson-title-${module.id}" tabindex="-1">${module.title}</h2>
+        <button class="btn plain" type="button" data-close>Cerrar</button>
+      </header>
+      <div class="lesson-intro">
+        <p>${module.intro}</p><ul>${module.tips.map(tip => `<li>${tip}</li>`).join("")}</ul>
+      </div>
+      <div class="lesson-grid">
+        <section class="box">
+          <h3>${module.tool}</h3><div data-tool></div>
+        </section>
+        <section class="box">
+          <h3>Video recomendado</h3><p><strong>${videoTitle}</strong></p><p class="small muted">${channel}</p>
+          <div class="player" data-player>
+            <button class="btn" type="button" data-load>${icon("play")} Cargar reproductor</button>
+          </div>
+          <p class="small"><a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer">Ver en YouTube ↗</a></p>
+          <p class="small muted">Si el reproductor no abre desde el archivo, usá el enlace a YouTube.</p>
+          <div class="book-note">
+            <h3>Para seguir leyendo</h3>
+            <p><cite>${bookTitle}</cite> · ${author}</p><p class="small muted">${bookTip}</p>
+          </div>
+        </section>
+      </div>
+      <div class="checks">
+        <p class="small muted">Confirmá la lectura y el video cuando termines. Podés desmarcarlos si necesitás corregir el avance.</p>
+        <div class="row">
+          <button class="btn primary" type="button" data-check="read" aria-pressed="false">Ya lo leí · Guardar en mi progreso</button>
+          <button class="btn" type="button" data-check="video" aria-pressed="false">Ya vi el video</button>
+        </div>
+      </div>`;
+
+      const tile = $(".tile", card);
+      tile.addEventListener("click", () => active === module ? closeLesson(true) : openLesson(module));
+      $("[data-close]", content).addEventListener("click", () => closeLesson(true));
+      $("[data-load]", content).addEventListener("click", () => loadVideo(module, content));
+      $$("[data-check]", content).forEach(button => button.addEventListener("click", () => {
+        const key = progressKey(module, button.dataset.check);
+        write(key, read(key) !== true);
+        updateProgress();
+      }));
+
+      catalog.append(card);
+      pane.append(content);
+      views.set(module.id, { card, tile, content });
+    }
+
+    function loadVideo(module, content) {
+      const [id, title, , captions] = module.video;
+      const player = $("[data-player]", content);
+      const frame = document.createElement("iframe");
+      frame.title = title;
+      frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      frame.allowFullscreen = true;
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0${captions ? "&cc_load_policy=1&cc_lang_pref=es" : ""}`;
+      $("[data-load]", player).hidden = true;
+      player.append(frame);
+      frame.focus();
+    }
+
+    function placeLesson() {
+      if (!active) return;
+      const columns = wide.matches ? 3 : medium.matches ? 2 : 1;
+      const index = visible.indexOf(active);
+      const end = Math.min(visible.length - 1, index + columns - 1 - (index % columns));
+      const anchor = views.get(visible[end].id).card;
+      if (anchor.nextElementSibling !== pane) anchor.after(pane);
+    }
+
+    function closeLesson(restoreFocus = false) {
+      if (!active) return;
+      const view = views.get(active.id);
+      $("iframe", view.content)?.remove();
+      $("[data-load]", view.content).hidden = false;
+      view.tile.setAttribute("aria-expanded", "false");
+      view.content.hidden = true;
+      pane.hidden = true;
+      active = null;
+      if (restoreFocus) view.tile.focus();
+    }
+
+    function openLesson(module, resetSearch = false) {
+      if (resetSearch) {
+        query.value = "";
+        category = "all";
+        filterModules();
+      }
+      if (active !== module) closeLesson();
+      active = module;
+      const view = views.get(module.id);
+      pane.style.setProperty("--accent", module.color);
+      pane.setAttribute("aria-labelledby", `lesson-title-${module.id}`);
+      pane.hidden = false;
+      view.content.hidden = false;
+      view.tile.setAttribute("aria-expanded", "true");
+      placeLesson();
+      $("h2", view.content).focus({ preventScroll: true });
+      pane.scrollIntoView({ block: "start" });
+    }
+
+    function rankedModules(text) {
+      const queryText = ` ${normalize(text)} `;
+      return modules.map(module => {
+        const matches = module.keys.split("|").map(normalize).filter(key => queryText.includes(` ${key} `));
+        const uniqueMatches = new Set(matches);
+        const score = [...uniqueMatches].reduce((sum, key) => sum + (key.includes(" ") ? 8 : 1), 0);
+        return { module, score };
+      }).filter(item => item.score > 0).sort((a, b) => b.score - a.score).map(item => item.module);
+    }
+
+    function filterModules() {
+      const searching = Boolean(normalize(query.value));
+      const ranked = searching ? rankedModules(query.value) : [];
+      visible = modules.filter(module => (category === "all" || module.topic === category) &&
+        (!searching || ranked.includes(module)));
+      if (active && !visible.includes(active)) closeLesson();
+      for (const module of modules) views.get(module.id).card.hidden = !visible.includes(module);
+      $$("#filters button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.topic === category)));
+      suggested = ranked.find(module => visible.includes(module));
+      $("#suggestion").hidden = !suggested;
+      if (suggested) say($("#suggestion"), `Te puede servir · ${suggested.title}`);
+      $("#clear-search").hidden = visible.length !== 0;
+      say($("#result-count"), visible.length
+        ? `${visible.length} ${visible.length === 1 ? "módulo" : "módulos"}`
+        : "No encontramos un módulo. Probá «vergüenza», «estudiar» o «decir que no».");
+      placeLesson();
+    }
+
+    const progressKey = (module, step) => `m${module.id}.${step}`;
+    const badgeList = [
+      ["☀️ Nuevo comienzo", "Completá tu primer módulo", done => done.size > 0],
+      ["🌿 Alma calmada", "Completá el módulo 1", done => done.has(1)],
+      ["🤝 Conector empático", "Completá los módulos 2 y 5", done => done.has(2) && done.has(5)]
+    ];
+    let certificateUnlocked = false;
+
+    function updateProgress() {
+      const done = new Set();
+      let readings = 0;
+      let videos = 0;
+      for (const module of modules) {
+        const hasRead = read(progressKey(module, "read")) === true;
+        const hasWatched = read(progressKey(module, "video")) === true;
+        readings += Number(hasRead);
+        videos += Number(hasWatched);
+        if (hasRead && hasWatched) done.add(module.id);
+        const { card, content } = views.get(module.id);
+        const status = done.has(module.id) ? "✓ Completado" : hasRead || hasWatched ? "En progreso" : "Ver módulo";
+        say($("[data-tile-status]", card), status);
+        $("[data-check=read]", content).setAttribute("aria-pressed", String(hasRead));
+        $("[data-check=video]", content).setAttribute("aria-pressed", String(hasWatched));
+      }
+      const total = modules.length;
+      const percent = Math.round(100 * (readings + videos) / (2 * total));
+      say($("#percent"), `${percent}%`);
+      $("#meter").setAttribute("aria-valuenow", percent);
+      $("#meter span").style.width = `${percent}%`;
+      say($("#progress-count"), `${done.size} de ${total} módulos · ${readings} lecturas · ${videos} videos`);
+      certificateUnlocked = done.size === total;
+      say($("#encouragement"), certificateUnlocked ? "Terminaste la guía. Tu certificado está listo para preparar."
+        : percent > 0 ? "Cada paso cuenta. Podés seguir cuando tengas ganas y tiempo."
+        : "Podés empezar por lo que más te sirva hoy.");
+      $("#badges").innerHTML = badgeList.map(([name, requirement, earned]) =>
+        earned(done) ? `<li class="earned" title="Insignia ganada">${name} ✓</li>`
+          : `<li title="${requirement}">${name}<span class="sr">. Pendiente. ${requirement}.</span></li>`).join("");
+      $("#certificate-form").hidden = !certificateUnlocked;
+      say($("#certificate-status"), certificateUnlocked
+        ? "¡Completaste los 9 módulos! Elegí el nombre que querés en tu constancia."
+        : `Para desbloquearlo te faltan ${total - readings} de 9 lecturas y ${total - videos} de 9 videos por confirmar.`);
+      if (!certificateUnlocked) {
+        $("#preview").hidden = true;
+        $("#preview-note").hidden = true;
+        $("#certificate-actions").hidden = true;
+      }
+    }
+
+    function countdown(show, finish) {
+      let interval = 0;
+      let deadline = 0;
+      let remaining = 0;
+
+      function stop() {
+        clearInterval(interval);
+        interval = 0;
+      }
+
+      function tick() {
+        remaining = Math.max(0, deadline - Date.now());
+        show(Math.ceil(remaining / 1000));
+        if (remaining === 0) {
+          stop();
+          finish();
+        }
+      }
+
+      return {
+        reset(seconds) {
+          stop();
+          remaining = seconds * 1000;
+          show(seconds);
+        },
+        start() {
+          if (interval || !remaining) return;
+          deadline = Date.now() + remaining;
+          interval = setInterval(tick, 120);
+          tick();
+        },
+        pause() {
+          if (interval) tick();
+          stop();
+        }
+      };
+    }
+
+    function breathing(root) {
+      root.innerHTML = `<p>Tomá aire suavemente durante 4 segundos y soltalo durante 4. Son tres vueltas, sin retener el aire.</p>
+        <div class="breathe" aria-hidden="true"><span class="orb">4</span></div>
+        <p data-phase role="status">Cuando quieras, empezamos.</p>
+        <div class="row"><button class="btn primary" type="button" data-start>Empezar</button>
+          <button class="btn plain" type="button" data-stop>Parar</button></div>
+        <p class="small muted">Si contar te incomoda, frená y volvé a respirar a tu ritmo.</p>`;
+      const orb = $(".orb", root);
+      const phase = $("[data-phase]", root);
+      const clock = countdown(seconds => {
+        if (!seconds) return;
+        const cycle = (24 - seconds) % 8;
+        const inhale = cycle < 4;
+        orb.classList.toggle("in", inhale);
+        say(orb, String(4 - (cycle % 4)));
+        say(phase, inhale ? "Tomá aire suave." : "Soltá el aire despacio.");
+      }, () => {
+        say(orb, "✓");
+        say(phase, "Listo. Fijate cómo te sentís y seguí a tu ritmo.");
+      });
+      $("[data-start]", root).onclick = () => {
+        clock.reset(24);
+        clock.start();
+      };
+      $("[data-stop]", root).onclick = () => {
+        clock.reset(24);
+        orb.classList.remove("in");
+        say(phase, "Pausa terminada. Volvé a respirar a tu ritmo.");
+      };
+    }
+
+    function socialChallenges(root) {
+      const challenges = [
+        [
+          "Saludá por su nombre a alguien con quien ya te cruzás.",
+          "Preguntale a un compañero qué le pareció la actividad.",
+          "Contale a alguien de confianza algo chico que te pasó hoy."
+        ],
+        [
+          "En el recreo, preguntale a alguien qué está escuchando o mirando últimamente.",
+          "Hacé una pregunta sobre algo que la otra persona haya mencionado.",
+          "Invitá a un compañero a caminar un rato por el patio."
+        ],
+        [
+          "Hacé una pregunta en clase o en tu grupo de trabajo.",
+          "Proponé un plan sencillo para el recreo.",
+          "Contá una idea propia en un grupo chico y preguntá qué opinan."
+        ]
+      ];
+      root.innerHTML = `<p>Elegí un reto que te dé un poquito de nervios y que sientas posible.</p>
+        <label class="stack">Nivel del reto<select data-level>
+          <option value="0">1 · Un saludo o una pregunta</option>
+          <option value="1">2 · Una charla de a dos</option>
+          <option value="2">3 · Dar un paso en grupo</option>
+        </select></label>
+        <div class="row"><button class="btn primary" type="button">Dame un reto</button></div>
+        <p class="answer" role="status"></p>
+        <p class="small muted">Para escuchar mejor, retomá una palabra de lo que te contaron. «Dijiste que estuvo difícil. ¿Qué fue lo más difícil?»</p>`;
+      let last = "";
+      $("button", root).onclick = () => {
+        const choices = challenges[$("select", root).value].filter(choice => choice !== last);
+        last = choices[Math.floor(Math.random() * choices.length)];
+        say($(".answer", root), last);
+      };
+    }
+
+    function trafficLight(root) {
+      root.innerHTML = `<p>Probá una pausa antes de contestar. Podés elegir el color que necesitás.</p>
+        <div class="row" role="group" aria-label="Semáforo">
+          <button class="btn" type="button" aria-pressed="false">🔴 Rojo</button>
+          <button class="btn" type="button" aria-pressed="false">🟡 Amarillo</button>
+          <button class="btn" type="button" aria-pressed="false">🟢 Verde</button>
+        </div>
+        <p class="timer" aria-hidden="true" hidden></p><p class="answer" role="status"></p>`;
+      const display = $(".timer", root);
+      const answer = $(".answer", root);
+      const buttons = $$("button", root);
+      const clock = countdown(seconds => say(display, String(seconds)), () => {
+        display.hidden = true;
+        say(answer, "Pasaron cinco segundos. Si te sirve, seguí con amarillo.");
+      });
+      const steps = [
+        "Apoyá los pies. Antes de contestar, date cinco segundos.",
+        "Poné en palabras qué pasó y qué te dolió. ¿Qué querés que el otro entienda?",
+        "Probá decir «Necesito un momento. Quiero hablarlo cuando podamos escucharnos»."
+      ];
+      buttons.forEach((button, index) => button.onclick = () => {
+        buttons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+        display.hidden = index !== 0;
+        clock.reset(5);
+        say(answer, steps[index]);
+        if (index === 0) clock.start();
+      });
+    }
+
+    function pomodoro(root) {
+      root.innerHTML = `<p>Elegí una tarea concreta. Al terminar el bloque, levantate o descansá un poco.</p>
+        <label class="stack">Duración del estudio
+          <select><option value="25">25 minutos</option><option value="15">15 minutos</option><option value="10">10 minutos</option></select>
+        </label>
+        <div class="row" role="group" aria-label="Modo del temporizador">
+          <button class="btn" type="button" data-mode="study">Estudio</button>
+          <button class="btn" type="button" data-mode="break">Pausa de 5 min</button>
+        </div>
+        <p class="timer" aria-label="Tiempo restante">25:00</p>
+        <div class="row"><button class="btn primary" type="button" data-start>Empezar</button>
+          <button class="btn plain" type="button" data-reset>Reiniciar</button></div>
+        <p class="answer small" role="status"></p>`;
+      const start = $("[data-start]", root);
+      const select = $("select", root);
+      const answer = $(".answer", root);
+      let mode = "study";
+      let running = false;
+      let paused = false;
+      const clock = countdown(seconds => {
+        const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+        say($(".timer", root), `${minutes}:${String(seconds % 60).padStart(2, "0")}`);
+      }, () => {
+        const wasStudy = mode === "study";
+        reset(wasStudy ? "break" : "study");
+        say(answer, wasStudy ? "Bloque terminado. Tu pausa está lista para empezar." : "Pausa terminada. Podés empezar otro bloque cuando quieras.");
+      });
+
+      function reset(nextMode = mode) {
+        mode = nextMode;
+        running = false;
+        paused = false;
+        clock.reset(60 * (mode === "study" ? Number(select.value) : 5));
+        say(start, "Empezar");
+        say(answer, "");
+        $$("[data-mode]", root).forEach(button => button.setAttribute("aria-pressed", String(button.dataset.mode === mode)));
+      }
+
+      select.onchange = () => reset("study");
+      $("[data-reset]", root).onclick = () => reset();
+      $$("[data-mode]", root).forEach(button => button.onclick = () => reset(button.dataset.mode));
+      start.onclick = () => {
+        if (running) {
+          running = false;
+          paused = true;
+          say(start, "Continuar");
+          say(answer, "El reloj está en pausa.");
+          clock.pause();
+          return;
+        }
+        running = true;
+        say(start, "Pausar");
+        say(answer, mode === "study" ? (paused ? "Bloque retomado." : "Bloque iniciado.") : "Descanso iniciado.");
+        clock.start();
+      };
+      reset();
+    }
+
+    function simulator(root) {
+      const scenarios = [
+        ["Tus amigos insisten en que mandes una foto de otra persona al grupo.", [
+          ["Bueno, pero háganse cargo ustedes.", "Ceder puede aliviar la presión del momento. Si querés sostener tu decisión, practicá un «No la voy a mandar»."],
+          ["No la voy a mandar. Preguntémosle primero si quiere compartirla.", "Tu límite queda claro y le das a la otra persona la posibilidad de decidir sobre su foto."],
+          ["Son insoportables. Dejen de molestar.", "Tu molestia se entiende. Podés sostener el límite con una frase sobre lo que vas a hacer vos."]
+        ]],
+        ["Un amigo hace un chiste sobre vos delante del curso. Te incomodó.", [
+          ["Me incomodó el chiste de hoy. Te pido que no lo repitas.", "Describís lo que pasó y hacés un pedido concreto. Podés elegir hablar en privado si te resulta más cómodo."],
+          ["Me río para que no se note.", "Es comprensible. Si la incomodidad sigue, podés hablarlo más tarde, cuando encuentres un momento seguro."],
+          ["Voy a hacerle un chiste peor.", "Devolver la burla puede escalar la situación. Un pedido claro le da al otro la oportunidad de entenderte."]
+        ]],
+        ["Alguien te pide tu tarea para copiarla justo antes de entregar.", [
+          ["Dale, llevátela.", "Si aceptaste por presión, todavía podés decir que lo pensaste mejor y ofrecerle otra ayuda."],
+          ["Arreglate, es tu problema.", "El límite se entiende. Si te interesa cuidar el vínculo, podés expresar la misma decisión con más calma."],
+          ["No te paso mi tarea. Si querés, te explico el primer punto.", "Marcás lo que decidiste y ofrecés una ayuda que sí te resulta cómoda."]
+        ]]
+      ];
+      root.innerHTML = `<p data-situation></p><div class="stack" role="group" aria-label="Respuestas posibles"></div>
+        <p class="answer" role="status"></p><button class="btn plain" type="button" data-next>Otra situación</button>`;
+      let index = 0;
+      const options = $(".stack", root);
+      const answer = $(".answer", root);
+
+      function showScenario() {
+        const [question, choices] = scenarios[index];
+        say($("[data-situation]", root), question);
+        say(answer, "");
+        options.replaceChildren();
+        for (const [text, feedback] of choices) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "btn";
+          button.textContent = text;
+          button.setAttribute("aria-pressed", "false");
+          button.onclick = () => {
+            $$("button", options).forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+            say(answer, feedback);
+          };
+          options.append(button);
+        }
+      }
+
+      $("[data-next]", root).onclick = () => {
+        index = (index + 1) % scenarios.length;
+        showScenario();
+      };
+      showScenario();
+    }
+
+    function savings(root) {
+      const fields = [
+        ["Meta", "goal", 0.01, ""],
+        ["Ya ahorré", "saved", 0, "0"],
+        ["Puedo sumar por mes", "monthly", 0, ""]
+      ];
+      root.innerHTML = `<p>Ingresá los montos en pesos argentinos.</p><form class="stack">
+        ${fields.map(([label, name, minimum, value]) => `<label>${label}
+          <input name="${name}" type="number" min="${minimum}" max="1000000000" step="0.01" inputmode="decimal" required value="${value}"></label>`).join("")}
+        <button class="btn primary" type="submit">Calcular</button>
+      </form><p class="answer" role="status"></p>
+      <p class="small muted">El cálculo usa el precio y el aporte de hoy. Podés actualizarlos cuando cambien.</p>`;
+
+      const format = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS" });
+      $("form", root).onsubmit = event => {
+        event.preventDefault();
+        const [goal, saved, monthly] = $$("input", root).map(field => Math.round(field.valueAsNumber * 100));
+        const left = Math.max(0, goal - saved);
+        const months = monthly > 0 ? Math.ceil(left / monthly) : 0;
+        const duration = months === 1 ? "1 mes" : `${months.toLocaleString("es-AR")} meses`;
+        say($(".answer", root), left === 0 ? "Con ese ahorro ya alcanzás tu meta."
+          : months > 0 ? `Te faltan ${format.format(left / 100)}. Con ese aporte llegarías en ${duration}.`
+          : `Te faltan ${format.format(left / 100)}. Ingresá un aporte mayor a cero para estimar el tiempo.`);
+      };
+    }
+
+    function screenCheck(root) {
+      const habits = [
+        ["Miro el celu en la cama.", "Probá dejarlo cargando lejos de la cama una noche."],
+        ["Abro redes sin saber bien para qué.", "Antes de abrir una red, elegí qué vas a hacer y cuándo cerrarla."],
+        ["Las notificaciones me cortan el estudio.", "Silenciá las notificaciones durante un bloque de estudio."],
+        ["Cierro una app sintiéndome peor conmigo.", "Silenciá por unos días una cuenta que te haga compararte seguido."]
+      ];
+      root.innerHTML = `<p>Marcá lo que te suele pasar. El resultado te propone un ajuste para probar.</p>
+        <form class="stack">
+          ${habits.map(([habit], index) => `<label class="checkline"><input type="checkbox" value="${index}">${habit}</label>`).join("")}
+          <button class="btn primary" type="submit">Ver ideas para mí</button>
+        </form><div class="answer" role="status"></div>`;
+
+      $("form", root).onsubmit = event => {
+        event.preventDefault();
+        const items = $$("input:checked", root).map(input => habits[Number(input.value)][1]);
+        $(".answer", root).innerHTML = items.length
+          ? `<p>Elegí una para probar hoy.</p><ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>`
+          : "<p>Si ninguno te pasa seguido, observá qué te ayuda a cerrar una app cuando ya hiciste lo que querías.</p>";
+      };
+    }
+
+    function notes(root, key, fields, introduction, label) {
+      root.innerHTML = `<p>${introduction}</p><form class="stack">
+        ${fields.map(([prompt, example]) => `<label>${prompt}<textarea rows="2" maxlength="260" placeholder="${example}"></textarea></label>`).join("")}
+        <div class="row"><button class="btn primary" type="submit">${label}</button>
+          <button class="btn plain" type="button" data-delete>Borrar mis notas</button></div>
+      </form><p class="small muted">Si guardás, tus notas quedan en este navegador.</p><p class="answer" role="status"></p>`;
+      const stored = read(key);
+      const inputs = $$("textarea", root);
+      const answer = $(".answer", root);
+      if (Array.isArray(stored)) inputs.forEach((input, index) => input.value = stored[index] || "");
+
+      $("form", root).onsubmit = event => {
+        event.preventDefault();
+        const values = inputs.map(input => input.value.trim());
+        if (values.every(value => !value)) {
+          say(answer, "Escribí al menos una idea para guardar.");
+          inputs[0].focus();
+          return;
+        }
+        const saved = write(key, values);
+        let message = saved ? "Guardado en este navegador." : "Quedó en esta sesión hasta que recargues.";
+        if (key === "mapa" && values[3]) message += ` Tu próximo paso es «${values[3]}».`;
+        say(answer, message);
+      };
+
+      $("[data-delete]", root).onclick = () => {
+        const removed = write(key, null);
+        inputs.forEach(input => input.value = "");
+        say(answer, removed ? "Borraste tus notas de este navegador." : "Se borraron de esta sesión. El navegador bloqueó el borrado de una copia guardada.");
+      };
+    }
+
+    const activities = [
+      breathing, socialChallenges, trafficLight, pomodoro, simulator, savings, screenCheck,
+      root => notes(root, "diario", [
+        ["Algo que agradezco de hoy", "Alguien me esperó a la salida."],
+        ["Una fortaleza que mostré", "Tuve paciencia cuando algo no me salió."]
+      ], "Buscá un detalle que te sostuvo y algo que hiciste que quieras reconocer.", "Guardar mi diario"),
+      root => notes(root, "mapa", [
+        ["¿Qué disfruto hacer?", "Sacar fotos."],
+        ["¿Qué se me da o me gustaría aprender?", "Editar y contar historias."],
+        ["¿A quién le podría servir?", "Al equipo que organiza la feria."],
+        ["¿Qué puedo probar esta semana?", "Hacer tres fotos de un ensayo."]
+      ], "Este mapa está inspirado en el ikigai. Empezá por algo que te dé curiosidad y elegí una prueba chica.", "Guardar mi mapa")
+    ];
+
+    function certificateMarkup() {
+      return `${icon("brand")}<h2>Certificado de finalización</h2>
+        <p>El Centro de Estudiantes Jóvenes Libres reconoce a</p>
+        <strong data-recipient></strong>
+        <p>por completar los nueve módulos de la Guía de Desarrollo Personal, Bienestar Emocional y Habilidades Sociales.</p>
+        <p data-date></p><p class="small">Jóvenes Libres · Constancia basada en el recorrido confirmado por el participante.</p>`;
+    }
+
+    const certificateName = $("#certificate-name");
+    certificateName.oninput = () => certificateName.setCustomValidity("");
+    $("#certificate-form").onsubmit = event => {
+      event.preventDefault();
+      if (!certificateUnlocked) return;
+      const name = certificateName.value.trim().replace(/\s+/g, " ");
+      if (!name) {
+        certificateName.setCustomValidity("Escribí el nombre que querés mostrar.");
+        certificateName.reportValidity();
+        return;
+      }
+      const date = new Intl.DateTimeFormat("es-AR", { dateStyle: "long" }).format(new Date());
+      for (const sheet of [$("#preview"), $("#printout")]) {
+        sheet.innerHTML = certificateMarkup();
+        $("[data-recipient]", sheet).textContent = name;
+        $("[data-date]", sheet).textContent = date;
+      }
+      $("#preview").hidden = false;
+      $("#preview-note").hidden = false;
+      $("#certificate-actions").hidden = false;
+      $("#preview").scrollIntoView({ block: "nearest" });
+    };
+    $("#print-certificate").onclick = () => {
+      if (!certificateUnlocked || $("#preview").hidden) return;
+      document.body.classList.add("printing");
+      window.print();
+    };
+    window.addEventListener("afterprint", () => document.body.classList.remove("printing"));
+
+    const bookEmail = $("#book-email");
+    const bookStatus = $("#book-status");
+    const bookActions = $("#book-actions");
+    const savedEmail = read("libro");
+    if (typeof savedEmail === "string" && savedEmail) {
+      bookEmail.value = savedEmail;
+      bookActions.hidden = false;
+      say(bookStatus, "Tu ficha está guardada en este navegador.");
+    }
+
+    $("#book-form").onsubmit = event => {
+      event.preventDefault();
+      const saved = write("libro", bookEmail.value.trim());
+      bookActions.hidden = false;
+      say(bookStatus, saved ? "Ficha guardada. Descargala para compartirla con el Centro."
+        : "La ficha está disponible para descargar durante esta sesión.");
+    };
+    $("#book-download").onclick = () => {
+      const email = read("libro");
+      if (typeof email !== "string" || !email) return;
+      const file = new Blob(
+        [`Lista de espera del libro de Jóvenes Libres\n\nQuiero recibir novedades sobre el libro.\nCorreo: ${email}\n`],
+        { type: "text/plain;charset=utf-8" }
+      );
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(file);
+      link.download = "ficha-libro-jovenes-libres.txt";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 10000);
+    };
+    $("#book-delete").onclick = () => {
+      const removed = write("libro", null);
+      bookEmail.value = "";
+      bookActions.hidden = true;
+      say(bookStatus, removed ? "Ficha borrada." : "El navegador bloqueó el borrado de la ficha guardada.");
+      bookEmail.focus();
+    };
+
+    const chat = $("#chat");
+    const chatToggle = $("#chat-toggle");
+    const log = $("#chat-log");
+
+    function toggleChat(open) {
+      chat.hidden = !open;
+      chatToggle.setAttribute("aria-expanded", String(open));
+      if (open) $("#chat-close").focus({ preventScroll: true });
+      else chatToggle.focus({ preventScroll: true });
+    }
+
+    function message(text, { mine = false, module, support = false } = {}) {
+      const bubble = document.createElement("div");
+      bubble.className = mine ? "message mine" : "message";
+      bubble.textContent = text;
+      if (module) {
+        const button = document.createElement("button");
+        button.className = "btn";
+        button.type = "button";
+        button.textContent = `Abrir «${module.title}»`;
+        button.onclick = () => {
+          toggleChat(false);
+          openLesson(module, true);
+        };
+        bubble.append(document.createElement("br"), button);
+      }
+      if (support) {
+        const link = document.createElement("a");
+        link.href = helpUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "Ver dónde pedir ayuda en Argentina ↗";
+        bubble.append(document.createElement("br"), link);
+      }
+      log.append(bubble);
+      if (log.children.length > 30) log.firstElementChild.remove();
+      log.scrollTop = log.scrollHeight;
+    }
+
+    const quickReplies = [
+      ["Me da mucha vergüenza hablar con gente nueva", 2],
+      ["Discuto mucho con mis amigos / familia", 5],
+      ["Estoy muy estresado por el colegio", 1],
+      ["Solo quiero charlar o desahogarme", 8]
+    ];
+
+    function respond(text, selectedId) {
+      message(text, { mine: true });
+      const words = normalize(text);
+      const riskText = words.replace(/\b(?:me quiero morir|me muero|me quiero matar) de verguenza\b/g, "");
+      const risk = /\b(suicid(?:io|arme|arse)|autolesion(?:es)?|quiero morir(?:me)?|matarme|matarse|quiero desaparecer|hacer(?:me|te|se) dano|(?:me quiero|me voy a|se quiere) hacer dano|quiero cortarme|me quiero cortar|voy a lastimarme|no quiero (?:seguir viviendo|vivir)|me van a matar|me amenazan)\b/;
+      if (risk.test(riskText)) {
+        message("Gracias por decirlo. Si vos u otra persona están en peligro ahora o pueden lastimarse, buscá ya a una persona adulta de confianza, procurá quedarte con alguien y pedí ayuda a emergencias de tu zona. Podés mostrarle lo que acabás de escribir.", { support: true });
+        return;
+      }
+      if (/\b(bullying|acoso|me pegan|me pega|me golpean|me golpea|maltrato|abuso|me hostigan)\b/.test(words)) {
+        message("Merecés que te tomen en serio. Buscá a una persona adulta de confianza del colegio o de tu entorno y contale qué pasó. Si hay peligro en este momento, pedí ayuda urgente.", { support: true });
+        return;
+      }
+      const module = selectedId ? modules.find(item => item.id === selectedId) : rankedModules(text)[0];
+      if (selectedId === 8 || !module) {
+        message("Podés ir despacio. Por un minuto, probá nombrar qué pasó y qué te vendría bien ahora. Si querés contárselo a alguien, podés empezar con «¿Me escuchás un rato?»", { module: modules[7] });
+        return;
+      }
+      message(module.reply, { module });
+    }
+
+    message("Hola, estoy acá para escucharte. ¿Qué te pasa hoy o de qué te gustaría hablar?");
+    for (const [text, id] of quickReplies) {
+      const button = document.createElement("button");
+      button.className = "btn plain";
+      button.type = "button";
+      button.textContent = text;
+      button.onclick = () => respond(text, id);
+      $("#chat-quick").append(button);
+    }
+    chatToggle.hidden = false;
+    chatToggle.onclick = () => toggleChat(chat.hidden);
+    $("#chat-close").onclick = () => toggleChat(false);
+    chat.onkeydown = event => {
+      if (event.key === "Escape") toggleChat(false);
+    };
+    $("#chat-form").onsubmit = event => {
+      event.preventDefault();
+      const input = $("#chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      respond(text);
+    };
+
+    for (const [index, module] of modules.entries()) {
+      buildModule(module);
+      activities[index]($("[data-tool]", views.get(module.id).content));
+    }
+    catalog.append(pane);
+
+    for (const [id, label] of topics) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn chip plain";
+      button.dataset.topic = id;
+      button.textContent = label;
+      button.onclick = () => {
+        category = id;
+        filterModules();
+      };
+      $("#filters").append(button);
+    }
+
+    query.oninput = filterModules;
+    $("#search-form").onsubmit = event => {
+      event.preventDefault();
+      if (suggested) openLesson(suggested);
+    };
+    $("#suggestion").onclick = () => {
+      if (suggested) openLesson(suggested);
+    };
+    $("#clear-search").onclick = () => {
+      category = "all";
+      query.value = "";
+      filterModules();
+      query.focus();
+    };
+
+    for (const breakpoint of [wide, medium]) breakpoint.addEventListener("change", placeLesson);
+    window.addEventListener("storage", event => {
+      if (!event.key || event.key.startsWith(prefix + "m")) updateProgress();
+    });
+    filterModules();
+    updateProgress();
+  </script>
+</body>
+</html>
